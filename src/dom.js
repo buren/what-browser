@@ -37,12 +37,12 @@ export function appendTo(selector, element) {
 }
 
 export function flashText(element, text, timeout = 1500) {
-  const previousText = element.innerText;
+  const previousHTML = element.innerHTML;
   element.innerText = text;
   element.disabled = true;
 
   setTimeout(() => {
-    element.innerText = previousText;
+    element.innerHTML = previousHTML;
     element.disabled = false;
   }, timeout);
 }
