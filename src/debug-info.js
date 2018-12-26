@@ -1,5 +1,8 @@
+const bowser = require('bowser');
+const browserData = bowser.getParser(window.navigator.userAgent).parsedResult;
+
 export function browserInfo() {
-  const browser = {
+  const navigatorData = {
     browser: navigator.appName,
     codename: navigator.appCodeName,
     version: navigator.appVersion,
@@ -10,12 +13,20 @@ export function browserInfo() {
     userAgent: navigator.userAgent
   };
 
-  const plugins = {};
+  const pluginsData = {};
   for (var key in navigator.plugins) {
     if (!navigator.plugins.hasOwnProperty(key)) continue;
 
-    plugins[navigator.plugins[key].name] = navigator.plugins[key].description;
+    pluginsData[navigator.plugins[key].name] = navigator.plugins[key].description;
   }
 
-  return { browser: browser, plugins: plugins };
+  return {
+    ...browserData,
+    browser: {
+      shortVersion: browserData.browser.version.split('.')[0],
+      ...browserData.browser
+    },
+    navigator: navigatorData,
+    plugins: pluginsData
+  };
 }
