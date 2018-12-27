@@ -68,6 +68,13 @@ const battery = () => new Promise(resolve => {
     }));
 });
 
+const ipAddress = () => new Promise(resolve => {
+  fetch('https://api.ipify.org/?format=json')
+    .then(response => response.json())
+    .then(json => resolve({ ip: json.ip }))
+    .catch(() => resolve({ ip: null }))
+});
+
 export const browserInfo = () => new Promise(resolve => {
   const dataParts = [
     rootData(),
@@ -76,6 +83,7 @@ export const browserInfo = () => new Promise(resolve => {
     device(),
     battery(),
     plugins(),
+    ipAddress(),
     features()
   ];
 
