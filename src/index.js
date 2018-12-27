@@ -11,7 +11,7 @@ setFavicon(favicon);
 
 onReady(() => {
   browserInfo().then(info => {
-    const logoHref = browserLogos[info.browser.name];
+    const logoHref = browserLogos(info.browser.name);
     if (logoHref) {
       appendTo('#browser-logo', createImage(logoHref))
     }
